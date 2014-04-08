@@ -53,4 +53,22 @@ app.post('/login', function(req, res) {
   });
 });
 
+app.post('/forgotpassword', function(res, req) {
+  var hostname = req.headers.host;
+  var resetPasswordUrl = 'http://' + hostname + '/resetPassword';
+  var email = req.param('email', null);
+  if( email == null || email.length < 1 ) {
+    res.send(400);
+    return;
+  }
+
+  Account.forgotPassword(email, resetPasswordUrl, function(success) {
+    if(success) {
+      res.send(200);
+    } else {
+      res.send(400) // Account not found
+    }
+  });
+});
+
 app.listen(8080);
