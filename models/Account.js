@@ -68,7 +68,7 @@ module.exports = function(config, mongoose, nodemailer) {
     });
   };
   var register = function(email, password, firstName, lastName) {
-    var shaSum = crypto.createHash('sha256');
+    var shaSum = crypto.createHash('sha256'); // one way encryption that cannot be decrypted
     shaSum.update(password);
 
     console.log('Registering ' + email);
