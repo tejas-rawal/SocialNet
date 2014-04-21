@@ -102,4 +102,11 @@ app.post('/resetPassword', function(req, res) {
   res.render('resetPasswordSuccess.jade');
 });
 
+app.get('/accounts/:id', function(res, req) {
+  var accountId = req.params.id == 'me'? req.session.accountId : req.params.id;
+  Account.findOne({_id:accountId}, function(account) {
+    res.send(account);
+  });
+});
+
 app.listen(8080);
